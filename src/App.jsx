@@ -14,7 +14,7 @@ export const App = () => {
 
   const onChangeTodoText = () => setTodoText(event.target.value);
   const onClick = () => {
-    if (todoText !== "") { // === "" ならreturnとかくのとどっちがいいのか
+    if (todoText !== "") { // if(todoText === "") return どっちがいいのか
       const newTodos = [...incompleteTodos, todoText];
     setIncompleteTodos(newTodos);
     setTodoText("");
