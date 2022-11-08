@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NodeBuilderFlags } from "typescript";
 import "./styles.css";
+import "./components/inputTodos";
+import { InputTodo } from "./components/inputTodos";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
@@ -12,7 +14,7 @@ export const App = () => {
     "ccc",
   ]);
 
-  const onChangeTodoText = () => setTodoText(event.target.value);
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText];
@@ -47,17 +49,14 @@ const onClickBack = (index) => {
 
   return (
     <>
-      <div className="input-area">
-        <input placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText}/>
-        <button onClick={onClickAdd}>追加</button>
-      </div>
+      <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd}/>
       <div className="incomplete-area">
         <p className="title ">未完了のTODO</p>
         <ul>
           {incompleteTodos.map((todo, index) => {
             return (
-              <li>
-                <div key={todo} className="list-row">
+              <li key={index}>
+                <div className="list-row">
                   <span>{todo}</span>
                   <button onClick={() => onClickComplete(index)}>完了</button>
                   <button onClick={() => onClickDelete(index)}>削除</button>
@@ -72,8 +71,8 @@ const onClickBack = (index) => {
         <ul>
           {completeTodos.map((todos, index) => {
             return (
-              <li>
-                <div key={todos} className="list-row">
+              <li key={index}>
+                <div className="list-row">
                   <span>{todos}</span>
                   <button onClick={() => onClickBack(index)}>戻す</button>
                 </div>
