@@ -3,6 +3,7 @@ import { NodeBuilderFlags } from "typescript";
 import "./styles.css";
 import "./components/inputTodos";
 import { InputTodo } from "./components/inputTodos";
+import { IncompleteTodos } from "./components/incompleteTodos";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
@@ -50,22 +51,7 @@ const onClickBack = (index) => {
   return (
     <>
       <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd}/>
-      <div className="incomplete-area">
-        <p className="title ">未完了のTODO</p>
-        <ul>
-          {incompleteTodos.map((todo, index) => {
-            return (
-              <li key={index}>
-                <div className="list-row">
-                  <span>{todo}</span>
-                  <button onClick={() => onClickComplete(index)}>完了</button>
-                  <button onClick={() => onClickDelete(index)}>削除</button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
       <div className="complete-area">
         <p className="title ">完了のTODO</p>
         <ul>
