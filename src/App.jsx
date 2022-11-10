@@ -4,6 +4,7 @@ import "./styles.css";
 import "./components/inputTodos";
 import { InputTodo } from "./components/inputTodos";
 import { IncompleteTodos } from "./components/incompleteTodos";
+import { CompleteTotos } from "./components/completeTodos";
 
 export const App = () => {
   const [todoText, setTodoText] = useState("");
@@ -50,23 +51,10 @@ const onClickBack = (index) => {
 
   return (
     <>
-      <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd}/>
+      <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd} disabled={incompleteTodos.length >= 5}/>
+      {incompleteTodos.length >= 5 && <p>Max number of todos!!!</p>}
       <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
-      <div className="complete-area">
-        <p className="title ">完了のTODO</p>
-        <ul>
-          {completeTodos.map((todos, index) => {
-            return (
-              <li key={index}>
-                <div className="list-row">
-                  <span>{todos}</span>
-                  <button onClick={() => onClickBack(index)}>戻す</button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <CompleteTotos todos={completeTodos} onClickBack={onClickBack} />
     </>
   );
 }
